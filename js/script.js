@@ -5,6 +5,8 @@ const loading = document.getElementById('loading');
 const pageIndicator = document.getElementById('pageIndicator');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
+const thumbsOverlay = document.getElementById('thumbsOverlay');
+const thumbsBtn = document.getElementById('thumbsBtn');
 
 let pages = [];
 let currentPage = 0;
@@ -42,7 +44,7 @@ function loadImages(){
     let index = 1;
     while(true){
       try{
-        const img = await loadImage(`content/${index}.jpg`);
+        const img = await loadImage(`content/${index}.webp`);
         imgs.push(img);
         index++;
       }catch(e){
@@ -101,6 +103,38 @@ function flipDown(){
 
 function updateIndicator(){
   pageIndicator.textContent = `${currentPage + 1} / ${pages.length}`;
+}
+
+function gotoPage(index){
+  if(index < 0 || index >= pages.length) return;
+  pages.forEach((page, i) => {
+    page.classList.toggle('flipped', i < index);
+    page.classList.remove('vertical');
+  });
+  currentPage = index;
+  updateIndicator();
+}
+
+function buildThumbs(){
+  thumbsOverlay.innerHTML = '';
+  pages.forEach((_, i) => {
+    const img = document.createElement('img');
+    img.src = `content/thumbs/${i + 1}.webp`;
+    img.addEventListener('click', () => {
+      gotoPage(i);
+      toggleThumbs();
+    });
+    thumbsOverlay.appendChild(img);
+  });
+}
+
+function toggleThumbs(){
+  if(thumbsOverlay.classList.contains('show')){
+    thumbsOverlay.classList.remove('show');
+  }else{
+    if(!thumbsOverlay.childElementCount) buildThumbs();
+    thumbsOverlay.classList.add('show');
+  }
 }
 
 prevBtn.addEventListener('click', flipPrev);
@@ -180,6 +214,11 @@ document.getElementById('fullscreenBtn').addEventListener('click', () => {
   }else{
     document.exitFullscreen();
   }
+});
+
+thumbsBtn.addEventListener('click', toggleThumbs);
+thumbsOverlay.addEventListener('click', (e) => {
+  if(e.target === thumbsOverlay) toggleThumbs();
 });
 
 window.addEventListener('DOMContentLoaded', init);
