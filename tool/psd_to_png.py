@@ -20,7 +20,10 @@ def psd_to_png(input_dir: str, output_dir: str | None = None) -> None:
 
     for psd_path in src.glob("*.psd"):
         psd = PSDImage.open(psd_path)
-        image = psd.compose()
+        # ``PSDImage.compose`` was renamed to ``PSDImage.composite`` in
+        # psd-tools 1.9.0.  The older name no longer exists in recent
+        # versions, so use ``composite`` to build the flattened image.
+        image = psd.composite()
         out_path = dst / f"{psd_path.stem}.png"
         image.save(out_path)
         print(f"Saved {out_path}")
