@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D 电子画册</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="loadingOuter" id="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <div class="catalog_simple_bar">
+    <button id="prevBtn">上一页</button>
+    <span id="pageIndicator">0 / 0</span>
+    <button id="nextBtn">下一页</button>
+  </div>
+
+  <div class="bookContainer">
+    <div class="shadow"></div>
+    <div class="thickness"></div>
+    <div class="book" id="book"></div>
+    <div class="mask" id="mask"></div>
+  </div>
+
+  <div class="shareBar">
+    <a href="#" class="share wechat">微信</a>
+    <a href="#" class="share weibo">微博</a>
+    <a href="#" class="share qzone">QQ空间</a>
+  </div>
+
+  <div class="toolbox" id="toolbox">
+    <div class="toggle" id="toolboxToggle">≡</div>
+    <div class="tools">
+      <button id="thumbsBtn">缩略图</button>
+      <button id="catalogBtn">目录</button>
+      <button id="autoBtn">自动翻页</button>
+      <button id="fullscreenBtn">全屏</button>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
