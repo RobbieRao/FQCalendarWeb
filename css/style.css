@@ -30,10 +30,14 @@ html,body{
 }
 
 .page img{
+  position:absolute;
+  top:0;
+  left:0;
   width:100%;
   height:100%;
   display:block;
   backface-visibility:hidden;
+  z-index:1;
 }
 
 .page .back{
@@ -45,6 +49,7 @@ html,body{
   background:#fff;
   backface-visibility:hidden;
   transform:rotateY(180deg);
+  z-index:0;
 }
 
 .page.flipped{
