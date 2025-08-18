@@ -19,11 +19,15 @@ let autoFlipTimer = null;
 async function init(){
   const imgs = await loadImages();
   if(imgs.length === 0){
-    loading.style.display = 'none';
+    loading.innerText = '未找到图片，请将 WebP 图片放入 content 目录';
     return;
   }
   const w = imgs[0].naturalWidth;
   const h = imgs[0].naturalHeight;
+  if(!w || !h){
+    loading.innerText = '第一张图片加载失败，请检查图片文件';
+    return;
+  }
   bookContainer.style.width = w + 'px';
   bookContainer.style.height = h + 'px';
 
