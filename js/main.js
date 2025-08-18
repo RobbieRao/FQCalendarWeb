@@ -1,5 +1,87 @@
-var share_url=window.location.href.removeStartFrom("#p="),share_title=window.document.title+"%20",share_description,share_screenshot,facebook_screenshot,AnalysisShare=Class({create:function(){share_screenshot=getRealURL(bookConfig.thumbPath+"1.webp");facebook_screenshot=bookConfig.facebookShotImageURL?bookConfig.facebookShotImageURL:bookConfig.thumbPath+"1.webp";facebook_screenshot=getRealURL(facebook_screenshot);share_description=bookConfig.bookDescription;bookConfig.socialShareLink&&(share_url=bookConfig.socialShareLink);
-typeof b||passwardType()&&bookConfig.excludeFrontPages&&c>parseInt(bookConfig.excludeFrontPages)&&!verifyPassward()?!1:!0},fitPageWidthHeight=function(b,c,d,f){d||(d=bookConfig.largePageWidth);f||(f=bookConfig.largePageHeight);var g=Point(0,0);b/c>d/f?(g.x=2*parseInt(d*c/(2*f)),g.y=c):(g.x=2*parseInt(b/2),g.y=b*f/d);return g},getFileFormat=function(b){return!passwardType()||!bookConfig.excludeFrontPages||b<=parseInt(bookConfig.excludeFrontPages)?".png":".js"},decodeBase64=function(b,c){var d=encodeDatabasePrefix(c);
-if(global[d+b]&&"string"==typeof global[d+b]){var f=getRealkey();if(f)return d=base64.decode(global[d+b]),f=rc4(f,d),base64.encode(f)}},dataBase64Str=function(b,c,d){if(verifyPassward()){var f=decodeDatabasePrefix(c),g=encodeDatabasePrefix(c);if(global[f+b])return global[g+b]=null,d&&$(d).remove(),global[f+b];c="data:image/png;base64,"+decodeBase64(b,c);global[f+b]=c;global[g+b]=null;d&&$(d).remove();return c}},decodeDatabasePrefix=function(b){switch(b){case "normal":return"dataBase";case "large":return"dataBase";
-Class("ShareEmailButton",{create:function(){this.color=Color(bookConfig.iconColor);this.fontColor=Color(bookConfig.iconFontColor);this.$button=$("<a target="+bookConfig.OpenWindow+" href='' class='button' style='text-decoration:none;'></a>");var b="",c=bookConfig.btnShareWithEmailBody||"",d=bookConfig.btnShareWithEmailSubject||"";thumb=" "+window.location.href.substring(0,share_url.lastIndexOf("/"))+"/"+bookConfig.thumbPath+"1.webp ";c=c.replaceAll("{thumb}",thumb,!0);if(0<=c.indexOf("{link_no_page}"))var f=
-(c="");thumb=" "+window.location.href.substring(0,share_url.lastIndexOf("/"))+"/"+bookConfig.thumbPath+"1.webp ";b=b.replaceAll("{thumb}",thumb,!0);b=b.replaceAll("{link}",window.location.href,!0);b=b.replaceAll("{title}",window.document.title,!0);this.$button.attr("href","mailto:?subject="+c+"&body="+b)}},onClick:function(b){}}).expand(PhoneToolbarButtons).extend("ToolbarButton");
+var share_url = window.location.href.removeStartFrom("#p="),
+    share_title = window.document.title + "%20",
+    share_description,
+    share_screenshot,
+    facebook_screenshot;
+
+var AnalysisShare = Class({
+  create: function(){
+    share_screenshot = getRealURL(bookConfig.thumbPath + "1.webp");
+    facebook_screenshot = bookConfig.facebookShotImageURL ? bookConfig.facebookShotImageURL : bookConfig.thumbPath + "1.webp";
+    facebook_screenshot = getRealURL(facebook_screenshot);
+    share_description = bookConfig.bookDescription;
+    if(bookConfig.socialShareLink){
+      share_url = bookConfig.socialShareLink;
+    }
+  }
+});
+
+var fitPageWidthHeight = function(b,c,d,f){
+  d || (d = bookConfig.largePageWidth);
+  f || (f = bookConfig.largePageHeight);
+  var g = Point(0,0);
+  b/c > d/f ? (g.x = 2*parseInt(d*c/(2*f)), g.y = c) : (g.x = 2*parseInt(b/2), g.y = b*f/d);
+  return g;
+};
+
+var getFileFormat = function(b){
+  return !passwardType() || !bookConfig.excludeFrontPages || b <= parseInt(bookConfig.excludeFrontPages) ? ".png" : ".js";
+};
+
+var decodeBase64 = function(b,c){
+  var d = encodeDatabasePrefix(c);
+  if(global[d+b] && "string" == typeof global[d+b]){
+    var f = getRealkey();
+    if(f){
+      d = base64.decode(global[d+b]);
+      f = rc4(f, d);
+      return base64.encode(f);
+    }
+  }
+};
+
+var dataBase64Str = function(b,c,d){
+  if(verifyPassward()){
+    var f = decodeDatabasePrefix(c),
+        g = encodeDatabasePrefix(c);
+    if(global[f+b]){
+      global[g+b] = null;
+      d && $(d).remove();
+      return global[f+b];
+    }
+    c = "data:image/png;base64," + decodeBase64(b,c);
+    global[f+b] = c;
+    global[g+b] = null;
+    d && $(d).remove();
+    return c;
+  }
+};
+
+var decodeDatabasePrefix = function(b){
+  switch(b){
+    case "normal":
+      return "dataBase";
+    case "large":
+      return "dataBase";
+  }
+};
+
+Class("ShareEmailButton",{
+  create:function(){
+    this.color = Color(bookConfig.iconColor);
+    this.fontColor = Color(bookConfig.iconFontColor);
+    this.$button = $("<a target=" + bookConfig.OpenWindow + " href='' class='button' style='text-decoration:none;'></a>");
+    var b = "",
+        c = bookConfig.btnShareWithEmailBody || "",
+        d = bookConfig.btnShareWithEmailSubject || "";
+    var thumb = " " + window.location.href.substring(0, share_url.lastIndexOf("/")) + "/" + bookConfig.thumbPath + "1.webp ";
+    c = c.replaceAll("{thumb}", thumb, !0);
+    if(0 <= c.indexOf("{link_no_page}")) var f = (c = "");
+    thumb = " " + window.location.href.substring(0, share_url.lastIndexOf("/")) + "/" + bookConfig.thumbPath + "1.webp ";
+    b = b.replaceAll("{thumb}", thumb, !0);
+    b = b.replaceAll("{link}", window.location.href, !0);
+    b = b.replaceAll("{title}", window.document.title, !0);
+    this.$button.attr("href", "mailto:?subject=" + c + "&body=" + b);
+  },
+  onClick:function(b){}
+}).expand(PhoneToolbarButtons).extend("ToolbarButton");
