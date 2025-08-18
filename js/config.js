@@ -152,7 +152,7 @@ bookConfig.textClarityEnhancement = "0";
 bookConfig.bgBeginColor = "#1f2232";
 bookConfig.bgEndColor = "#1f2232";
 bookConfig.bgMRotation = "90";
-bookConfig.backGroundImgURL = "./images/backGroundImgURL.jpg";
+bookConfig.backGroundImgURL = "";
 bookConfig.backgroundPosition = "Stretch";
 bookConfig.backgroundOpacity = "100";
 bookConfig.backgroundScene = "None";
@@ -216,8 +216,9 @@ bookConfig.languageSetting = "Chinese";
 bookConfig.UIBaseURL = "./";
 bookConfig.EnableReportButton = "show";
 bookConfig.reportUrl = "";
-bookConfig.largePageWidth = "822";
-bookConfig.largePageHeight = "1218";
+// 页面尺寸将根据首张图片动态设置
+// bookConfig.largePageWidth = "822";
+// bookConfig.largePageHeight = "1218";
 
 var language = [{
   "language": "Chinese",
