@@ -39,6 +39,8 @@ async function init(){
   const coverPage = document.createElement('div');
   coverPage.className = 'page';
   coverPage.style.zIndex = leafCount;
+  imgs[0].style.width = '50%';
+  imgs[0].style.left = '50%';
   coverPage.appendChild(imgs[0]);
   book.appendChild(coverPage);
   pages.push(coverPage);
@@ -48,14 +50,20 @@ async function init(){
     page.className = 'page flip-side';
     page.style.zIndex = leafCount - Math.ceil(i / 2);
     const front = imgs[i];
+    front.style.width = '50%';
+    front.style.left = '50%';
     page.appendChild(front);
     let back;
     if(imgs[i + 1]){
       back = imgs[i + 1];
       back.classList.add('back');
+      back.style.width = '50%';
+      back.style.left = '0';
     }else{
       back = document.createElement('div');
       back.className = 'back';
+      back.style.width = '50%';
+      back.style.left = '0';
     }
     page.appendChild(back);
     book.appendChild(page);
@@ -67,10 +75,10 @@ async function init(){
 
 function resizeBook(){
   if(!pageWidth || !pageHeight) return;
-  const scale = Math.min(window.innerWidth * 0.9 / pageWidth,
+  const scale = Math.min(window.innerWidth * 0.9 / (pageWidth * 2),
                          window.innerHeight * 0.9 / pageHeight,
                          1);
-  bookContainer.style.width = (pageWidth * scale) + 'px';
+  bookContainer.style.width = (pageWidth * 2 * scale) + 'px';
   bookContainer.style.height = (pageHeight * scale) + 'px';
 }
 
@@ -137,10 +145,17 @@ function flipDown(){
   updateUI();
 }
 
-function updateUI(){
-  pageIndicator.textContent = `${currentPage + 1} / ${pages.length}`;
-  pages.forEach((page, i) => page.classList.toggle('top', i === currentPage));
-}
+  function updateUI(){
+    pageIndicator.textContent = `${currentPage + 1} / ${pages.length}`;
+    pages.forEach((page, i) => {
+      page.classList.toggle('top', i === currentPage);
+      if(i < currentPage){
+        page.style.zIndex = i;
+      }else{
+        page.style.zIndex = pages.length + (pages.length - i);
+      }
+    });
+  }
 
 function gotoPage(index){
   if(index < 0 || index >= pages.length) return;
@@ -186,10 +201,10 @@ mask.addEventListener('mousemove', (e) => {
   if(dragging){
     dragMoved = true;
     if(dragging === 'right'){
-      const progress = Math.min(Math.max((dragStartX - x) / rect.width, 0), 1);
+      const progress = Math.min(Math.max((dragStartX - x) / (rect.width / 2), 0), 1);
       dragPage.style.transform = `rotateY(${-progress * 180}deg)`;
     }else if(dragging === 'left'){
-      const progress = Math.min(Math.max((x - dragStartX) / rect.width, 0), 1);
+      const progress = Math.min(Math.max((x - dragStartX) / (rect.width / 2), 0), 1);
       dragPage.style.transform = `rotateY(${-180 + progress * 180}deg)`;
     }
     return;
@@ -237,53 +252,27 @@ mask.addEventListener('mousedown', (e) => {
   }
 });
 
-mask.addEventListener('mouseup', (e) => {
+mask.addEventListener('mouseup', () => {
   if(!dragging) return;
-  const rect = bookContainer.getBoundingClientRect();
-  const x = e.clientX - rect.left;
 
   if(dragging === 'right'){
-    const progress = Math.min(Math.max((dragStartX - x) / rect.width, 0), 1);
-    const moved = Math.abs(dragStartX - x);
-    if(progress > 0.5 || moved < 5){
-      dragPage.style.transition = 'transform 0.5s ease';
-      dragPage.style.transform = 'rotateY(-180deg)';
-      dragPage.addEventListener('transitionend', function handler(){
-        dragPage.removeEventListener('transitionend', handler);
-        dragPage.style.transition = '';
-        dragPage.style.transform = '';
-        flipNext();
-      });
-    }else{
-      dragPage.style.transition = 'transform 0.5s ease';
-      dragPage.style.transform = 'rotateY(0deg)';
-      dragPage.addEventListener('transitionend', function handler(){
-        dragPage.removeEventListener('transitionend', handler);
-        dragPage.style.transition = '';
-        dragPage.style.transform = '';
-      });
-    }
+    dragPage.style.transition = 'transform 0.5s ease';
+    dragPage.style.transform = 'rotateY(-180deg)';
+    dragPage.addEventListener('transitionend', function handler(){
+      dragPage.removeEventListener('transitionend', handler);
+      dragPage.style.transition = '';
+      dragPage.style.transform = '';
+      flipNext();
+    });
   }else if(dragging === 'left'){
-    const progress = Math.min(Math.max((x - dragStartX) / rect.width, 0), 1);
-    const moved = Math.abs(x - dragStartX);
-    if(progress > 0.5 || moved < 5){
-      dragPage.style.transition = 'transform 0.5s ease';
-      dragPage.style.transform = 'rotateY(0deg)';
-      dragPage.addEventListener('transitionend', function handler(){
-        dragPage.removeEventListener('transitionend', handler);
-        dragPage.style.transition = '';
-        dragPage.style.transform = '';
-        flipPrev();
-      });
-    }else{
-      dragPage.style.transition = 'transform 0.5s ease';
-      dragPage.style.transform = 'rotateY(-180deg)';
-      dragPage.addEventListener('transitionend', function handler(){
-        dragPage.removeEventListener('transitionend', handler);
-        dragPage.style.transition = '';
-        dragPage.style.transform = '';
-      });
-    }
+    dragPage.style.transition = 'transform 0.5s ease';
+    dragPage.style.transform = 'rotateY(0deg)';
+    dragPage.addEventListener('transitionend', function handler(){
+      dragPage.removeEventListener('transitionend', handler);
+      dragPage.style.transition = '';
+      dragPage.style.transform = '';
+      flipPrev();
+    });
   }
   dragging = null;
   dragPage = null;
