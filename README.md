@@ -1,6 +1,6 @@
 # FQCalendarWeb
 
-静态 3D 电子画册示例。将图片按 `1.png`, `2.png` … 命名后放入 `content/` 目录中，再在浏览器中打开 `index.html` 体验翻页效果。点击右侧工具栏的 **缩略图** 按钮可以预览所有页面的缩略图并快速跳转。支持键盘方向键翻页，`Esc` 键可关闭缩略图覆盖层。
+静态 3D 电子画册示例。将封面命名为 `0.png`，其余页面按 `1.png`, `2.png` … 命名后放入 `content/` 目录中，再在浏览器中打开 `index.html` 体验翻页效果。封面单页展示，之后每次翻页会同时显示两页（如 `1.png` 与 `2.png`、`3.png` 与 `4.png`）。点击右侧工具栏的 **缩略图** 按钮可以预览内页缩略图并快速跳转。支持键盘方向键翻页，`Esc` 键可关闭缩略图覆盖层。
 
 ## 图片处理工具
 
@@ -22,6 +22,6 @@ python tool/psd_to_png.py assets/psd -o content
 python tool/png_to_thumb.py content
 ```
 
-最终将生成的 `1.png`, `2.png` … 以及对应的 `thumbs/1.webp`, `thumbs/2.webp` … 放在 `content/` 中即可。
+最终将生成的 `0.png`, `1.png`, `2.png` … 以及对应的 `thumbs/1.webp`, `thumbs/2.webp` …（缩略图从 `1.png` 开始，与页面一一对应，`0.png` 作为封面不需要缩略图）放在 `content/` 中即可。
 
 需要依赖 [psd-tools](https://pypi.org/project/psd-tools/) 和 [Pillow](https://pypi.org/project/Pillow/)。
