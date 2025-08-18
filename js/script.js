@@ -1,3 +1,5 @@
+// Wrap all logic in an IIFE to avoid polluting global scope
+(function(){
 const book = document.getElementById('book');
 const bookContainer = document.querySelector('.bookContainer');
 const mask = document.getElementById('mask');
@@ -7,6 +9,8 @@ const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 const thumbsOverlay = document.getElementById('thumbsOverlay');
 const thumbsBtn = document.getElementById('thumbsBtn');
+
+const EDGE_MARGIN = 80;
 
 let pages = [];
 let currentPage = 0;
@@ -25,7 +29,7 @@ async function init(){
 
   imgs.forEach((img, i) => {
     const page = document.createElement('div');
-    page.className = 'page flip-side' + (i === 0 ? ' top' : '');
+    page.className = 'page flip-side';
     page.style.zIndex = imgs.length - i;
     page.appendChild(img);
     const back = document.createElement('div');
@@ -34,7 +38,7 @@ async function init(){
     book.appendChild(page);
     pages.push(page);
   });
-  updateIndicator();
+  updateUI();
   loading.style.display = 'none';
 }
 
@@ -70,7 +74,7 @@ function flipNext(){
   page.classList.remove('vertical');
   page.classList.add('flipped');
   currentPage++;
-  updateIndicator();
+  updateUI();
 }
 
 function flipPrev(){
@@ -79,7 +83,7 @@ function flipPrev(){
   const page = pages[currentPage];
   page.classList.remove('flipped');
   setTimeout(() => page.classList.remove('vertical'), 800);
-  updateIndicator();
+  updateUI();
 }
 
 function flipUp(){
@@ -88,7 +92,7 @@ function flipUp(){
   page.classList.add('vertical');
   page.classList.add('flipped');
   currentPage++;
-  updateIndicator();
+  updateUI();
 }
 
 function flipDown(){
@@ -98,11 +102,12 @@ function flipDown(){
   page.classList.add('vertical');
   page.classList.remove('flipped');
   setTimeout(() => page.classList.remove('vertical'), 800);
-  updateIndicator();
+  updateUI();
 }
 
-function updateIndicator(){
+function updateUI(){
   pageIndicator.textContent = `${currentPage + 1} / ${pages.length}`;
+  pages.forEach((page, i) => page.classList.toggle('top', i === currentPage));
 }
 
 function gotoPage(index){
@@ -112,7 +117,7 @@ function gotoPage(index){
     page.classList.remove('vertical');
   });
   currentPage = index;
-  updateIndicator();
+  updateUI();
 }
 
 function buildThumbs(){
@@ -120,6 +125,7 @@ function buildThumbs(){
   pages.forEach((_, i) => {
     const img = document.createElement('img');
     img.src = `content/thumbs/${i + 1}.webp`;
+    img.alt = `缩略图 ${i + 1}`;
     img.addEventListener('click', () => {
       gotoPage(i);
       toggleThumbs();
@@ -144,17 +150,16 @@ mask.addEventListener('mousemove', (e) => {
   const rect = bookContainer.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
-  const margin = 80;
-  if(x > rect.width - margin){
+  if(x > rect.width - EDGE_MARGIN){
     bookContainer.classList.add('hover-right');
     bookContainer.classList.remove('hover-left','hover-top','hover-bottom');
-  }else if(x < margin){
+  }else if(x < EDGE_MARGIN){
     bookContainer.classList.add('hover-left');
     bookContainer.classList.remove('hover-right','hover-top','hover-bottom');
-  }else if(y < margin){
+  }else if(y < EDGE_MARGIN){
     bookContainer.classList.add('hover-top');
     bookContainer.classList.remove('hover-left','hover-right','hover-bottom');
-  }else if(y > rect.height - margin){
+  }else if(y > rect.height - EDGE_MARGIN){
     bookContainer.classList.add('hover-bottom');
     bookContainer.classList.remove('hover-left','hover-right','hover-top');
   }else{
@@ -170,14 +175,13 @@ mask.addEventListener('click', (e) => {
   const rect = bookContainer.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
-  const margin = 80;
-  if(x > rect.width - margin){
+  if(x > rect.width - EDGE_MARGIN){
     flipNext();
-  }else if(x < margin){
+  }else if(x < EDGE_MARGIN){
     flipPrev();
-  }else if(y < margin){
+  }else if(y < EDGE_MARGIN){
     flipUp();
-  }else if(y > rect.height - margin){
+  }else if(y > rect.height - EDGE_MARGIN){
     flipDown();
   }
 });
@@ -221,4 +225,25 @@ thumbsOverlay.addEventListener('click', (e) => {
   if(e.target === thumbsOverlay) toggleThumbs();
 });
 
+window.addEventListener('keydown', (e) => {
+  switch(e.key){
+    case 'ArrowRight':
+      flipNext();
+      break;
+    case 'ArrowLeft':
+      flipPrev();
+      break;
+    case 'ArrowUp':
+      flipUp();
+      break;
+    case 'ArrowDown':
+      flipDown();
+      break;
+    case 'Escape':
+      if(thumbsOverlay.classList.contains('show')) toggleThumbs();
+      break;
+  }
+});
+
 window.addEventListener('DOMContentLoaded', init);
+})();
