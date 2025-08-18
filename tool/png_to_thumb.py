@@ -13,6 +13,8 @@ def png_to_thumbs(
     dst.mkdir(parents=True, exist_ok=True)
 
     for png_path in src.glob("*.png"):
+        if png_path.stem == "0":
+            continue
         with Image.open(png_path) as img:
             img.thumbnail((size, size))
             out_path = dst / f"{png_path.stem}.webp"

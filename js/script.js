@@ -21,10 +21,12 @@ let dragging = null;
 let dragPage = null;
 let dragStartX = 0;
 let dragMoved = false;
+let totalImages = 0;
 
 async function init(){
   const imgs = await loadImages();
-  if(imgs.length === 0){
+  totalImages = imgs.length;
+  if(totalImages === 0){
     loading.style.display = 'none';
     return;
   }
@@ -32,17 +34,33 @@ async function init(){
   pageHeight = imgs[0].naturalHeight;
   resizeBook();
 
-  imgs.forEach((img, i) => {
+  const leafCount = 1 + Math.ceil((imgs.length - 1) / 2);
+
+  const coverPage = document.createElement('div');
+  coverPage.className = 'page';
+  coverPage.style.zIndex = leafCount;
+  coverPage.appendChild(imgs[0]);
+  book.appendChild(coverPage);
+  pages.push(coverPage);
+
+  for(let i = 1; i < imgs.length; i += 2){
     const page = document.createElement('div');
     page.className = 'page flip-side';
-    page.style.zIndex = imgs.length - i;
-    page.appendChild(img);
-    const back = document.createElement('div');
-    back.className = 'back';
+    page.style.zIndex = leafCount - Math.ceil(i / 2);
+    const front = imgs[i];
+    page.appendChild(front);
+    let back;
+    if(imgs[i + 1]){
+      back = imgs[i + 1];
+      back.classList.add('back');
+    }else{
+      back = document.createElement('div');
+      back.className = 'back';
+    }
     page.appendChild(back);
     book.appendChild(page);
     pages.push(page);
-  });
+  }
   updateUI();
   loading.style.display = 'none';
 }
@@ -59,7 +77,7 @@ function resizeBook(){
 function loadImages(){
   return new Promise(async (resolve) => {
     const imgs = [];
-    let index = 1;
+    let index = 0;
     while(true){
       try{
         const img = await loadImage(`content/${index}.png`);
@@ -136,16 +154,17 @@ function gotoPage(index){
 
 function buildThumbs(){
   thumbsOverlay.innerHTML = '';
-  pages.forEach((_, i) => {
+  for(let i = 1; i < totalImages; i++){
     const img = document.createElement('img');
-    img.src = `content/thumbs/${i + 1}.webp`;
-    img.alt = `缩略图 ${i + 1}`;
+    img.src = `content/thumbs/${i}.webp`;
+    img.alt = `缩略图 ${i}`;
+    const pageIndex = Math.ceil(i / 2);
     img.addEventListener('click', () => {
-      gotoPage(i);
+      gotoPage(pageIndex);
       toggleThumbs();
     });
     thumbsOverlay.appendChild(img);
-  });
+  }
 }
 
 function toggleThumbs(){
