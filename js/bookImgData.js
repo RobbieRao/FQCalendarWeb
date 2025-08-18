@@ -2,26 +2,26 @@
 var ols = [
   {
     "caption": "测试目录1",
-    "page": "1",
+    "page": "1"
   },
   {
     "caption": "测试目录2",
-    "page": "2",
+    "page": "2"
   },
   {
     "caption": "测试目录3",
-    "page": "3",
+    "page": "3"
   },
   {
     "caption": "测试目录4",
-    "page": "4",
-  },
+    "page": "4"
+  }
 ];
 
 // 路径配置
-var loadImgpath = "./files/thumb/"
+var contentPath = "./content/"; // 内容图片所在目录
 
-bookConfig.largePath = loadImgpath    // 大图路径
-bookConfig.normalPath = loadImgpath
-bookConfig.thumbPath = loadImgpath
-bookConfig.totalPageCount = ols.length    // 页面数量
+bookConfig.largePath = contentPath;         // 大图路径
+bookConfig.normalPath = contentPath;        // 普通图路径
+bookConfig.thumbPath = contentPath + "thumbs/"; // 缩略图路径
+bookConfig.totalPageCount = 69;             // 页面数量
