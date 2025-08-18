@@ -48,7 +48,7 @@ function loadImages(){
     let index = 1;
     while(true){
       try{
-        const img = await loadImage(`content/${index}.webp`);
+        const img = await loadImage(`content/${index}.png`);
         imgs.push(img);
         index++;
       }catch(e){
