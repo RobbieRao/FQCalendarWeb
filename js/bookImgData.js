@@ -10,9 +10,20 @@ for (var i = PAGE_START; i <= PAGE_END; i++) {
 }
 
 // 路径配置
-var loadImgpath = "./files/thumb/"
+var loadImgpath = "./files/thumb/";
 
-bookConfig.largePath = loadImgpath    // 大图路径
-bookConfig.normalPath = loadImgpath
-bookConfig.thumbPath = loadImgpath
-bookConfig.totalPageCount = ols.length    // 页面数量
+bookConfig.largePath = loadImgpath;    // 大图路径
+bookConfig.normalPath = loadImgpath;
+bookConfig.thumbPath = loadImgpath;
+bookConfig.totalPageCount = ols.length;    // 页面数量
+
+// 根据首张图片的尺寸调整页面大小
+var firstImage = new Image();
+firstImage.onload = function () {
+  bookConfig.largePageWidth = this.naturalWidth;
+  bookConfig.largePageHeight = this.naturalHeight;
+  if (typeof onStageResize === 'function') {
+    onStageResize();
+  }
+};
+firstImage.src = loadImgpath + "1.jpg";
