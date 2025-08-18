@@ -20,7 +20,6 @@ let pageHeight = 0;
 let dragging = null;
 let dragPage = null;
 let dragStartX = 0;
-let dragStartY = 0;
 let dragMoved = false;
 let totalImages = 0;
 
@@ -40,8 +39,8 @@ async function init(){
   const coverPage = document.createElement('div');
   coverPage.className = 'page';
   coverPage.style.zIndex = leafCount;
-  imgs[0].style.width = '100%';
-  imgs[0].style.left = '0';
+  imgs[0].style.width = '50%';
+  imgs[0].style.left = '50%';
   coverPage.appendChild(imgs[0]);
   book.appendChild(coverPage);
   pages.push(coverPage);
@@ -51,20 +50,20 @@ async function init(){
     page.className = 'page flip-side';
     page.style.zIndex = leafCount - Math.ceil(i / 2);
     const front = imgs[i];
-    front.style.width = '100%';
-    front.style.left = '0';
+    front.style.width = '50%';
+    front.style.left = '50%';
     page.appendChild(front);
     let back;
     if(imgs[i + 1]){
       back = imgs[i + 1];
       back.classList.add('back');
-      back.style.width = '100%';
-      back.style.left = '-100%';
+      back.style.width = '50%';
+      back.style.left = '0';
     }else{
       back = document.createElement('div');
       back.className = 'back';
-      back.style.width = '100%';
-      back.style.left = '-100%';
+      back.style.width = '50%';
+      back.style.left = '0';
     }
     page.appendChild(back);
     book.appendChild(page);
@@ -114,8 +113,6 @@ function flipNext(){
   const page = pages[currentPage];
   page.classList.remove('vertical');
   page.classList.add('flipped');
-  page.style.setProperty('--shadow', 0);
-  page.style.transformOrigin = '';
   currentPage++;
   updateUI();
 }
@@ -125,8 +122,6 @@ function flipPrev(){
   currentPage--;
   const page = pages[currentPage];
   page.classList.remove('flipped');
-  page.style.setProperty('--shadow', 0);
-  page.style.transformOrigin = '';
   setTimeout(() => page.classList.remove('vertical'), 800);
   updateUI();
 }
@@ -154,7 +149,6 @@ function flipDown(){
     pageIndicator.textContent = `${currentPage + 1} / ${pages.length}`;
     pages.forEach((page, i) => {
       page.classList.toggle('top', i === currentPage);
-      page.classList.toggle('left', i < currentPage);
       if(i < currentPage){
         page.style.zIndex = i;
       }else{
@@ -168,8 +162,6 @@ function gotoPage(index){
   pages.forEach((page, i) => {
     page.classList.toggle('flipped', i < index);
     page.classList.remove('vertical');
-    page.style.setProperty('--shadow', 0);
-    page.style.transformOrigin = '';
   });
   currentPage = index;
   updateUI();
@@ -205,18 +197,15 @@ nextBtn.addEventListener('click', flipNext);
 mask.addEventListener('mousemove', (e) => {
   const rect = bookContainer.getBoundingClientRect();
   const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
 
   if(dragging){
     dragMoved = true;
     if(dragging === 'right'){
       const progress = Math.min(Math.max((dragStartX - x) / (rect.width / 2), 0), 1);
-      dragPage.style.transform = `rotateY(${-progress * 180}deg) rotateX(${progress * 10}deg)`;
-      dragPage.style.setProperty('--shadow', progress);
+      dragPage.style.transform = `rotateY(${-progress * 180}deg)`;
     }else if(dragging === 'left'){
       const progress = Math.min(Math.max((x - dragStartX) / (rect.width / 2), 0), 1);
-      dragPage.style.transform = `rotateY(${-180 + progress * 180}deg) rotateX(${(1 - progress) * 10}deg)`;
-      dragPage.style.setProperty('--shadow', progress);
+      dragPage.style.transform = `rotateY(${-180 + progress * 180}deg)`;
     }
     return;
   }
@@ -225,29 +214,21 @@ mask.addEventListener('mousemove', (e) => {
     const page = pages[currentPage];
     const progress = Math.min((x - (rect.width - EDGE_MARGIN)) / EDGE_MARGIN, 1);
     page.style.transition = 'none';
-    page.style.transformOrigin = `left ${y}px`;
-    page.style.transform = `rotateY(${-15 * progress}deg) rotateX(${progress * 5}deg)`;
-    page.style.setProperty('--shadow', progress / 2);
+    page.style.transform = `rotateY(${-15 * progress}deg)`;
   }else if(x < EDGE_MARGIN && currentPage > 0){
     const page = pages[currentPage - 1];
     const progress = Math.min((EDGE_MARGIN - x) / EDGE_MARGIN, 1);
     page.style.transition = 'none';
-    page.style.transformOrigin = `right ${y}px`;
-    page.style.transform = `rotateY(${-180 + 15 * progress}deg) rotateX(${progress * 5}deg)`;
-    page.style.setProperty('--shadow', progress / 2);
+    page.style.transform = `rotateY(${-180 + 15 * progress}deg)`;
   }else{
     if(pages[currentPage]){
       pages[currentPage].style.transition = '';
       pages[currentPage].style.transform = '';
-      pages[currentPage].style.transformOrigin = '';
-      pages[currentPage].style.setProperty('--shadow', 0);
     }
     if(currentPage > 0){
       const p = pages[currentPage - 1];
       p.style.transition = '';
       p.style.transform = '';
-      p.style.transformOrigin = '';
-      p.style.setProperty('--shadow', 0);
     }
   }
 });
@@ -255,14 +236,11 @@ mask.addEventListener('mousemove', (e) => {
 mask.addEventListener('mousedown', (e) => {
   const rect = bookContainer.getBoundingClientRect();
   const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
   if(x > rect.width - EDGE_MARGIN && currentPage < pages.length - 1){
     dragging = 'right';
     dragPage = pages[currentPage];
     dragPage.style.transition = 'none';
     dragStartX = x;
-    dragStartY = y;
-    dragPage.style.transformOrigin = `left ${y}px`;
     dragMoved = false;
   }else if(x < EDGE_MARGIN && currentPage > 0){
     dragging = 'left';
@@ -270,8 +248,6 @@ mask.addEventListener('mousedown', (e) => {
     dragPage.style.transition = 'none';
     dragPage.style.transform = 'rotateY(-180deg)';
     dragStartX = x;
-    dragStartY = y;
-    dragPage.style.transformOrigin = `right ${y}px`;
     dragMoved = false;
   }
 });
@@ -282,24 +258,19 @@ mask.addEventListener('mouseup', () => {
   if(dragging === 'right'){
     dragPage.style.transition = 'transform 0.5s ease';
     dragPage.style.transform = 'rotateY(-180deg)';
-    dragPage.style.setProperty('--shadow', 1);
     dragPage.addEventListener('transitionend', function handler(){
       dragPage.removeEventListener('transitionend', handler);
       dragPage.style.transition = '';
       dragPage.style.transform = '';
-      dragPage.style.transformOrigin = '';
-      dragPage.style.setProperty('--shadow', 0);
       flipNext();
     });
   }else if(dragging === 'left'){
     dragPage.style.transition = 'transform 0.5s ease';
     dragPage.style.transform = 'rotateY(0deg)';
-    dragPage.style.setProperty('--shadow', 0);
     dragPage.addEventListener('transitionend', function handler(){
       dragPage.removeEventListener('transitionend', handler);
       dragPage.style.transition = '';
       dragPage.style.transform = '';
-      dragPage.style.transformOrigin = '';
       flipPrev();
     });
   }
@@ -312,26 +283,20 @@ mask.addEventListener('mouseleave', () => {
   if(dragging && dragPage){
     dragPage.style.transition = 'transform 0.5s ease';
     dragPage.style.transform = dragging === 'right' ? 'rotateY(0deg)' : 'rotateY(-180deg)';
-    dragPage.style.setProperty('--shadow', 0);
     dragPage.addEventListener('transitionend', function handler(){
       dragPage.removeEventListener('transitionend', handler);
       dragPage.style.transition = '';
       dragPage.style.transform = '';
-      dragPage.style.transformOrigin = '';
     });
   }else{
     if(pages[currentPage]){
       pages[currentPage].style.transition = '';
       pages[currentPage].style.transform = '';
-      pages[currentPage].style.transformOrigin = '';
-      pages[currentPage].style.setProperty('--shadow', 0);
     }
     if(currentPage > 0){
       const p = pages[currentPage - 1];
       p.style.transition = '';
       p.style.transform = '';
-      p.style.transformOrigin = '';
-      p.style.setProperty('--shadow', 0);
     }
   }
   dragging = null;
