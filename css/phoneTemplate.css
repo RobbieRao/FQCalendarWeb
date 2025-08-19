@@ -115,9 +115,16 @@
 		position : absolute;
 		cursor : pointer;
 	}
-	.phoneMoreButton div{
-		width : 25px;
-		height : 25px;
-		margin-left : 20px;
-		margin-top : 7px;
-	}
+        .phoneMoreButton div{
+                width : 25px;
+                height : 25px;
+                margin-left : 20px;
+                margin-top : 7px;
+        }
+
+/* Hide overlay panels on mobile until explicitly opened */
+.search_form.phone,
+.tableofcontent_form.phone,
+#phoneThum {
+        display: none;
+}
