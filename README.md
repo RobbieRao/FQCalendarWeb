@@ -5,7 +5,7 @@ FQCalendarWeb 提供 **FQ凯丰月历**，以翻页杂志的形式浏览图片�
 ## 目录结构
 
 ### 根目录
-- `index.html`：项目入口，加载页面样式、脚本并初始化分享信息【F:index.html†L1-L36】
+- `index.html`：项目入口，加载页面样式、脚本并初始化分享信息【F:index.html†L1-L42】
 
 ### `css/`
 - `style.css`：页面基础样式与翻页组件布局【F:css/style.css†L1-L18】
@@ -25,12 +25,13 @@ FQCalendarWeb 提供 **FQ凯丰月历**，以翻页杂志的形式浏览图片�
 ### 资源文件
 - `images/`：界面图标与背景资源
 - `voice/flipsound.ogg`：翻页音效
-- `files/thumb/`：示例页面图片及 `1.py` 批量重命名脚本【F:files/thumb/1.py†L1-L22】
+- `files/thumb/`：示例页面图片
 
 ## 使用说明
 1. 将图片资源放入 `files/thumb/`，按数字命名。
 2. 修改 `bookImgData.js` 中的 `PAGE_START`、`PAGE_END` 或 `loadImgpath` 以匹配资源路径。
-3. 直接打开 `index.html`，即可在浏览器中体验 3D 翻页效果。
+3. 更新 `index.html` 中的版本号可避免浏览器缓存旧资源。
+4. 直接打开 `index.html`，即可在浏览器中体验 3D 翻页效果。
 
 ### 移动端兼容
 为确保在 iOS 等移动设备上能够正常加载电子杂志，`index.html` 中的脚本不再使用 `defer` 属性，以保证按顺序同步加载。
