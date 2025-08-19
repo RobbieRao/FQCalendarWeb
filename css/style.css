@@ -6,6 +6,8 @@ html{width:100%;height:100%;margin:0;padding:0;}
 body{overflow:hidden!important;width:100%;height:100%;margin:0;padding:0!important;-ms-transform:translate(0);border:0;left:0;top:0;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background:#f8f0e3;background-image:radial-gradient(circle at center,#fdf5e6 0%,#e9d8a6 100%);}
 .tmpContainer{position:absolute;width:100%;height:100%;top: 0;left:0;display:block;overflow:hidden;z-index:1;}
 .bookContainer{position:absolute;width:100%;height:100%;z-index:2;top:0;left:0;display:block;overflow:hidden;}
+#tmpContainer, .bookContainer, .book{width:100vw;height:100dvh;}
+@supports not (height:100dvh){#tmpContainer, .bookContainer, .book{height:100vh;}}
 /*//book object*/
 p{margin:0;padding:0;}
 input{outline:none;}
@@ -3871,7 +3873,7 @@ a {
 .phoneBookmark .item{position:relative;width:100%;height:100px;line-height:100px;vertical-align:middle;font-size:15px;color:#aaaaaa;cursor:pointer;}
 .phoneBookmark .item span{margin:0 10px;float:left;display:inline-block;width:20px;}
 .phoneBookmark .item img{height:76px;float:left;margin:12px 0;}
-.phoneBookmark .item .close{position:absolute;cursor:pointer;top:30px;right:10px;width:41px;height:41px;background-position:-402px -429px;background-image: url(phoneIcon/phone_icon.png);background-repeat: no-repeat;}
+.phoneBookmark .item .close{position:absolute;cursor:pointer;top:30px;right:10px;width:41px;height:41px;background-position:-402px -429px;background-image:none;background-repeat:no-repeat;}
 .phoneBookmark .item .close:hover{background-position:-462px -429px;}
 
 .miniLogo{width:100px;right:0;bottom:0;opacity:0.5;position:absolute;cursor:pointer;z-index:100;}
