@@ -28,7 +28,7 @@ var bookConfig = {
   ToolBarsSettings: "",
   TitleBar: "",
   appLogoLinkURL: "",
-  bookTitle: "3DReader",
+  bookTitle: "FQ凯丰月历",
   bookDescription: "",
   ButtonsBar: "",
   ShareButton: "",
