@@ -1,35 +1,42 @@
-# 项目一：word、excel、pdf查看器
+# FQCalendarWeb 项目说明
 
-该项目是一个PDF或excel格式的文件上传到后台，前端在需要将这份协议弄成可预览的形式。
+FQCalendarWeb 提供两种文件展示方案：
 
-### 功能
-1. 在线预览word、excel、pdf等文件
-2. 以3D形式浏览pdf文件
+- **在线文档预览**：使用外部服务或 `pdf.js` 预览 Word、Excel、PDF 文件。
+- **3D 阅读器**：以翻页杂志的形式浏览图片，可配置页面资源和分享信息。
 
-### 浏览 word,excel文件
-1. 在线预览word、excel,可以直接引用微软的服务即可 
+## 目录结构
 
-```
-https://view.officeapps.live.com/op/view.aspx?src= + yourFile
-```
-2. 换上在线word文件即可，可[预览](https://view.officeapps.live.com/op/view.aspx?src=http://storage.xuetangx.com/public_assets/xuetangx/PDF/1.xls)demo
+### 根目录
+- `index.html`：项目入口，加载页面样式、脚本并初始化分享信息【F:index.html†L1-L36】
 
-### 浏览pdf文件
-1. 预览pdf文件需要用到pdf.js, 可以自己部署一个静态页面解析pdf文件
-2. 相关文件在pdf文件夹下，包含语言包,viewer静态页面,js等文件。可以直接拷贝整个文件夹使用
-3. 部署完后
+### `css/`
+- `style.css`：页面基础样式与翻页组件布局【F:css/style.css†L1-L18】
+- `player.css`：视频播放控件样式【F:css/player.css†L1-L27】
+- `phoneTemplate.css`：移动端缩略图条及按钮样式【F:css/phoneTemplate.css†L1-L37】
+- `template.css`：压缩后的通用模板样式
 
-```
-https://simingchen.github.io/pdfReader/pdf/viewer.html?file= + yourFile
-```
-4. 换上在线pdf文件即可，可[预览](https://simingchen.github.io/pdfReader/pdf/viewer.html?file=https://simingchen.github.io/pdfReader/pdf/test.pdf)demo
+### `js/`
+- `config.js`：阅读器核心配置与多语言映射【F:js/config.js†L1-L58】
+- `bookImgData.js`：定义页面数量与图片路径，并根据首图尺寸调整布局【F:js/bookImgData.js†L1-L29】
+- `main.js`：翻页逻辑与界面交互脚本（压缩版）
+- `check.js`：提供 SHA 相关函数等校验工具【F:js/check.js†L1-L1】
+- `LoadingJS.js`：注入加载动画的样式和脚本【F:js/LoadingJS.js†L1-L1】
+- `jquery.js`：jQuery 库文件
+- `weixin-share.js`：微信/Yixin 分享集成【F:js/weixin-share.js†L1-L1】
 
-# 项目二：3D阅读器
+### 资源文件
+- `images/`：界面图标与背景资源
+- `voice/flipsound.ogg`：翻页音效
+- `files/thumb/`：示例页面图片及 `1.py` 批量重命名脚本【F:files/thumb/1.py†L1-L22】
 
-该项目是一个在线预览图片以3D，杂志的方式的项目。
+## 使用说明
+1. 将图片资源放入 `files/thumb/`，按数字命名。
+2. 修改 `bookImgData.js` 中的 `PAGE_START`、`PAGE_END` 或 `loadImgpath` 以匹配资源路径。
+3. 直接打开 `index.html`，即可在浏览器中体验 3D 翻页效果。
 
-### 功能
-1. 预览图片以3D在线杂志的方式
-2. 整个项目文件包含css, 动画声音voice, 图片images, 相关js等
-3. 查看[地址](https://simingchen.github.io/pdfReader/index.html)
-4. 使用配置 bookImgData.js 的变量作为图片服务器的资源对应，本地测试路径 'files/thumb'，暂时文件对应为数字 1.jpg 命名。
+如需在线文档预览，可参考以下链接：
+
+- Word/Excel：`https://view.officeapps.live.com/op/view.aspx?src=你的文件地址`
+- PDF：自行部署 `pdf.js`，访问 `pdf/viewer.html?file=你的文件地址`
+
