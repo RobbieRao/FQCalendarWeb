@@ -32,4 +32,7 @@ FQCalendarWeb 提供 **FQ凯丰月历**，以翻页杂志的形式浏览图片�
 2. 修改 `bookImgData.js` 中的 `PAGE_START`、`PAGE_END` 或 `loadImgpath` 以匹配资源路径。
 3. 直接打开 `index.html`，即可在浏览器中体验 3D 翻页效果。
 
+### 移动端兼容
+为确保在 iOS 等移动设备上能够正常加载电子杂志，`index.html` 中的脚本不再使用 `defer` 属性，以保证按顺序同步加载。
+
 
