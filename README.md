@@ -1,9 +1,6 @@
 # FQCalendarWeb 项目说明
 
-FQCalendarWeb 提供两种文件展示方案：
-
-- **在线文档预览**：使用外部服务或 `pdf.js` 预览 Word、Excel、PDF 文件。
-- **3D 阅读器**：以翻页杂志的形式浏览图片，可配置页面资源和分享信息。
+FQCalendarWeb 提供 **3D 阅读器**，以翻页杂志的形式浏览图片，可配置页面资源和分享信息。
 
 ## 目录结构
 
@@ -18,7 +15,7 @@ FQCalendarWeb 提供两种文件展示方案：
 
 ### `js/`
 - `config.js`：阅读器核心配置与多语言映射【F:js/config.js†L1-L58】
-- `bookImgData.js`：定义页面数量与图片路径，并根据首图尺寸调整布局【F:js/bookImgData.js†L1-L29】
+- `bookImgData.js`：定义页面数量与图片路径，并在初始化时调整页面布局【F:js/bookImgData.js†L1-L23】
 - `main.js`：翻页逻辑与界面交互脚本（压缩版）
 - `check.js`：提供 SHA 相关函数等校验工具【F:js/check.js†L1-L1】
 - `LoadingJS.js`：注入加载动画的样式和脚本【F:js/LoadingJS.js†L1-L1】
@@ -34,9 +31,4 @@ FQCalendarWeb 提供两种文件展示方案：
 1. 将图片资源放入 `files/thumb/`，按数字命名。
 2. 修改 `bookImgData.js` 中的 `PAGE_START`、`PAGE_END` 或 `loadImgpath` 以匹配资源路径。
 3. 直接打开 `index.html`，即可在浏览器中体验 3D 翻页效果。
-
-如需在线文档预览，可参考以下链接：
-
-- Word/Excel：`https://view.officeapps.live.com/op/view.aspx?src=你的文件地址`
-- PDF：自行部署 `pdf.js`，访问 `pdf/viewer.html?file=你的文件地址`
 

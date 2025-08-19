@@ -18,7 +18,7 @@ var aliasLanguage = {
 var bookConfig = {
   bookPageStretch: false,
   maxHeightToSmallMode: 360,
-  appName: 'filpPdf',
+  appName: 'Flip3D',
   totalPageCount: 0,
   largePageWidth: 2835,
   largePageHeight: 2480,
@@ -28,7 +28,7 @@ var bookConfig = {
   ToolBarsSettings: "",
   TitleBar: "",
   appLogoLinkURL: "",
-  bookTitle: "pdfReader",
+  bookTitle: "3DReader",
   bookDescription: "",
   ButtonsBar: "",
   ShareButton: "",
@@ -67,13 +67,13 @@ var bookConfig = {
 shareObj = [{
   "name": "QQ空间",
   "url": "http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${url}&title=${title}",
-  "logo": "./pdfReader/images/qzone.ico",
+  "logo": "./images/qzone.ico",
   "title": "QQ空间"
 },
 {
   "name": "新浪微博",
   "url": "http://v.t.sina.com.cn/share/share.php?url=${url}&title=${title}",
-  "logo": "./pdfReader/images/sina_weibo.ico",
+  "logo": "./images/sina_weibo.ico",
   "title": "新浪微博"
 }];
 
