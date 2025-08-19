@@ -28,7 +28,7 @@ var bookConfig = {
   ToolBarsSettings: "",
   TitleBar: "",
   appLogoLinkURL: "",
-  bookTitle: "pdfReader",
+  bookTitle: "FQ月历",
   bookDescription: "",
   ButtonsBar: "",
   ShareButton: "",
@@ -64,18 +64,8 @@ var bookConfig = {
   searchPositionJS: "javascript/text_position[%d].js"
 };
 
-shareObj = [{
-  "name": "QQ空间",
-  "url": "http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${url}&title=${title}",
-  "logo": "./pdfReader/images/qzone.ico",
-  "title": "QQ空间"
-},
-{
-  "name": "新浪微博",
-  "url": "http://v.t.sina.com.cn/share/share.php?url=${url}&title=${title}",
-  "logo": "./pdfReader/images/sina_weibo.ico",
-  "title": "新浪微博"
-}];
+// 移除 QQ 空间和新浪微博的分享选项
+shareObj = [];
 
 bookConfig.loadingCaptionColor = "#dddddd";
 bookConfig.loadingPicture = "";
