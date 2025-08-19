@@ -23,3 +23,10 @@ bookConfig.totalPageCount = ols.length;    // 页面数量
 if (typeof onStageResize === 'function') {
   onStageResize();
 }
+
+// Preload the first couple of pages to ensure initial render on mobile
+['1', '2'].forEach(function(n) {
+  var img = new Image();
+  img.loading = 'eager';
+  img.src = loadImgpath + n + '.jpg';
+});
