@@ -123,8 +123,13 @@
         }
 
 /* Hide overlay panels on mobile until explicitly opened */
+.bookmark_form.phone,
+.print_form.phone,
 .search_form.phone,
+.setting_form.phone,
+.share_form.phone,
 .tableofcontent_form.phone,
+.about_form.phone,
 #phoneThum {
-        display: none;
+        display: none !important;
 }
