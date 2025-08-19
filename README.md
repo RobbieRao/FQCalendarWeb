@@ -1,11 +1,11 @@
 # FQCalendarWeb 项目说明
 
-FQCalendarWeb 提供 **FQ凯丰月历**，以翻页杂志的形式浏览图片，可配置页面资源和分享信息。
+FQCalendarWeb 提供 **FQ凯丰月历**，以翻页杂志的形式浏览图片，可配置页面资源。
 
 ## 目录结构
 
 ### 根目录
-- `index.html`：项目入口，加载页面样式、脚本并初始化分享信息【F:index.html†L1-L42】
+- `index.html`：项目入口，加载页面样式和脚本【F:index.html†L1-L42】
 
 ### `css/`
 - `style.css`：页面基础样式与翻页组件布局【F:css/style.css†L1-L18】
@@ -20,7 +20,6 @@ FQCalendarWeb 提供 **FQ凯丰月历**，以翻页杂志的形式浏览图片�
 - `check.js`：提供 SHA 相关函数等校验工具【F:js/check.js†L1-L1】
 - `LoadingJS.js`：注入加载动画的样式和脚本【F:js/LoadingJS.js†L1-L1】
 - `jquery.js`：jQuery 库文件
-- `weixin-share.js`：微信/Yixin 分享集成【F:js/weixin-share.js†L1-L1】
 
 ### 资源文件
 - `images/`：界面图标与背景资源

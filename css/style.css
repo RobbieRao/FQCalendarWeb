@@ -1477,31 +1477,6 @@ i,u{font-style:normal;text-decoration:none;}
   height: 70px;
 }
 
-.shareBar {
-  position: absolute;
-  width: 135px;
-  height: 220px;
-  background-color: #888888;
-  opacity: 0.8;
-  overflow: hidden;
-}
-
-.shareButton {
-  position: absolute;
-  width: 133px;
-  height: 30px;
-}
-
-.shareImg {
-  width: 22px;
-  height: 22px;
-}
-
-.shareBarImg {
-  width: 30px;
-  height: 30px;
-}
-
 .moreImg {
   width: 17px;
   height: 17px;
@@ -3886,16 +3861,6 @@ a {
     top: 26px;  
 }
 .passwardPannel:hover .passwardInfo{display:block;}
-
-.phoneSharePanel{width:100%;height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
-.phoneSharePanel .item{padding:10px;border-bottom:1px solid #474747;vertical-align:middle;color:#ffffff;line-height:50px;height:50px;font-weight:bold;}
-.phoneSharePanel .item .logo{width:50px;height:50px;display:inline-block;float:left;}
-.phoneSharePanel .item .logo div{width:50px;height:50px;}
-.phoneSharePanel .item span{margin-left:20px;float:left;}
-
-.sharePanel{}
-.sharePanel .item{width:30px;height:30px;margin:10px 0 10px 10px;display:inline-block;}
-.sharePanel .item .logo{width:30px;height:auto;}
 
 .ad-box-container{position:absolute;z-index:2000;bottom:25px;left:0;right:0;margin:0 auto;width:100%;display:none;}
 .ad-box-container .ad-box-image{width:100%;cursor:pointer;float:left;}
