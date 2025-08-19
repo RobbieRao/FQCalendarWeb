@@ -64,18 +64,7 @@ var bookConfig = {
   searchPositionJS: "javascript/text_position[%d].js"
 };
 
-shareObj = [{
-  "name": "QQ空间",
-  "url": "http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${url}&title=${title}",
-  "logo": "./images/qzone.ico",
-  "title": "QQ空间"
-},
-{
-  "name": "新浪微博",
-  "url": "http://v.t.sina.com.cn/share/share.php?url=${url}&title=${title}",
-  "logo": "./images/sina_weibo.ico",
-  "title": "新浪微博"
-}];
+shareObj = [];
 
 bookConfig.loadingCaptionColor = "#dddddd";
 bookConfig.loadingPicture = "";
@@ -104,7 +93,7 @@ bookConfig.HomeURL = "%first page%";
 bookConfig.aboutButtonVisible = "Hide";
 bookConfig.aboutContactInfoTxt = "";
 bookConfig.enablePageBack = "Hide";
-bookConfig.ShareButtonVisible = "Show";
+bookConfig.ShareButtonVisible = "";
 bookConfig.socialShareSetting = "";
 bookConfig.isInsertFrameLinkEnable = "Show";
 bookConfig.addCurrentPage = "No";
