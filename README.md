@@ -1,6 +1,6 @@
 # FQCalendarWeb 项目说明
 
-FQCalendarWeb 提供 **3D 阅读器**，以翻页杂志的形式浏览图片，可配置页面资源和分享信息。
+FQCalendarWeb 提供 **FQ凯丰月历**，以翻页杂志的形式浏览图片，可配置页面资源和分享信息。
 
 ## 目录结构
 
@@ -30,5 +30,5 @@ FQCalendarWeb 提供 **3D 阅读器**，以翻页杂志的形式浏览图片，�
 ## 使用说明
 1. 将图片资源放入 `files/thumb/`，按数字命名。
 2. 修改 `bookImgData.js` 中的 `PAGE_START`、`PAGE_END` 或 `loadImgpath` 以匹配资源路径。
-3. 直接打开 `index.html`，即可在浏览器中体验 3D 翻页效果。
+3. 直接打开 `index.html`，即可在浏览器中体验 FQ凯丰月历翻页效果。
 

@@ -13,11 +13,12 @@
 	<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge">
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
-        <title>3DReader</title>
-	<link rel="stylesheet" href="./css/style.css" />
-	<link rel="stylesheet" href="./css/player.css" />
-	<link rel="stylesheet" href="./css/phoneTemplate.css" />
-	<link rel="stylesheet" href="./css/template.css" />
+        <title>FQ凯丰月历</title>
+        <link rel="preload" as="image" href="./files/thumb/0.jpg" />
+        <link rel="stylesheet" href="./css/style.css" />
+        <link rel="stylesheet" href="./css/player.css" />
+        <link rel="stylesheet" href="./css/phoneTemplate.css" />
+        <link rel="stylesheet" href="./css/template.css" />
 
 	<script>
 		var title = "分享标题内容",   // 分享标题内容
@@ -34,6 +35,13 @@
         <script src="./js/bookImgData.js" defer></script>
         <script src="./js/check.js" defer></script>
         <script src="./js/LoadingJS.js" defer></script>
+        <script>
+                if ('serviceWorker' in navigator) {
+                        window.addEventListener('load', function () {
+                                navigator.serviceWorker.register('./service-worker.js');
+                        });
+                }
+        </script>
 </body>
 
 </html>
