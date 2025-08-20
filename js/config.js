@@ -203,7 +203,8 @@ bookConfig.showLinkHint = "No";
 bookConfig.googleAnalyticsID = "";
 bookConfig.languageSetting = "Chinese";
 bookConfig.UIBaseURL = "./";
-bookConfig.EnableReportButton = "show";
+// disable report panel on mobile to avoid missing PhoneReportPanel class
+bookConfig.EnableReportButton = "hide";
 bookConfig.reportUrl = "";
 // 页面尺寸将根据首张图片动态设置
 // bookConfig.largePageWidth = "822";

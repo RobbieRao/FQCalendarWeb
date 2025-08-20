@@ -20,6 +20,10 @@ bookConfig.thumbPath = loadImgpath;
 bookConfig.totalPageCount = ols.length;    // 页面数量
 
 // 使用预设尺寸，避免额外请求首张图片，加快启动速度
+if (typeof bookConfig.upsideOnMobile !== 'function') {
+  // ensure function exists before main.js initializes bookConfig
+  bookConfig.upsideOnMobile = function () { return false; };
+}
 if (typeof onStageResize === 'function') {
   onStageResize();
 }
