@@ -24,10 +24,10 @@ FQCalendarWeb 提供 **FQ凯丰月历**，以翻页杂志的形式浏览图片�
 ### 资源文件
 - `images/`：界面图标与背景资源
 - `voice/flipsound.ogg`：翻页音效
-- `webp/`：示例页面图片
+- `files/thumb/`：示例页面图片
 
 ## 使用说明
-1. 将图片资源放入 `webp/`，按数字命名。
+1. 将图片资源放入 `files/thumb/`，按数字命名。
 2. 修改 `bookImgData.js` 中的 `PAGE_START`、`PAGE_END` 或 `loadImgpath` 以匹配资源路径。
 3. 更新 `index.html` 中的版本号可避免浏览器缓存旧资源。
 4. 直接打开 `index.html`，即可在浏览器中体验 3D 翻页效果。
