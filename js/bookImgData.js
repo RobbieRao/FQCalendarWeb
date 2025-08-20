@@ -12,7 +12,7 @@ for (var i = PAGE_START; i <= PAGE_END; i++) {
 }
 
 // 路径配置
-var loadImgpath = "./files/thumb/";
+var loadImgpath = "./webp/";
 
 bookConfig.largePath = loadImgpath;    // 大图路径
 bookConfig.normalPath = loadImgpath;
